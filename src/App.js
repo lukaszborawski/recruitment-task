@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
+
+import { theme } from './assets/styles/Theme'
+import './assets/styles/fonts.css'
+import GlobalStyle from './assets/styles/GlobalStyle'
+import UsersList from './pages/UsersList';
+import UserDetails from './pages/UserDetails';
+import PostDetails from './pages/PostDetails';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Wrapper>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<UsersList />} />
+              <Route path='/user/:id' element={<UserDetails />} />
+              <Route path='/user/:id/:postID' element={<PostDetails />} />
+            </Routes>
+          </BrowserRouter>
+        </Wrapper>
+      </ThemeProvider>
+    </>
+
+  )
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 0;
+`
